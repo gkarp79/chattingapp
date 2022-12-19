@@ -1,0 +1,20 @@
+service: chatTest # provide the project name
+provider:
+  name: aws
+  runtime: java8
+  stage: dev
+  region: us-east-1
+
+
+
+package:
+  artifact: target/chatTest-0.0.1-SNAPSHOT.jar # provide path of the jar file
+
+functions:
+  getRoom:
+    handler: com.websocket.chattest.config.StreamLambdaHandler.java
+    events:
+      - http:
+          path: roomNum/{roomNum}
+          method: GET # Http metodod [GET,POST,etc]
+          cors: true # allows cors
