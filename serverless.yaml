@@ -2,8 +2,6 @@ service: chatTest # provide the project name
 provider:
   name: aws
   runtime: java8
-  stage: dev
-  region: us-east-1
 
 
 
@@ -12,9 +10,12 @@ package:
 
 functions:
   getRoom:
-    handler: com.websocket.chattest.config.StreamLambdaHandler.java
+    handler: com.websocket.chattest.config.StreamLambdaHandler::handleRequest
     events:
+      - websocket:
+          route: $connect
+          cors: true
       - http:
-          path: roomNum/{roomNum}
-          method: GET # Http metodod [GET,POST,etc]
-          cors: true # allows cors
+          path: /roomNum/{roomNum}
+          method: get
+          cors: true

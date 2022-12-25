@@ -1,0 +1,11 @@
+Resources:
+  Function:
+    Type: AWS::Serverless::Function
+    Properties:
+      Timeout: 300
+      MemorySize: 128
+      Handler: com.websocket.chattest.config.StreamLambdaHandler
+      CodeUri: E:\project\work\megazone_project\test\chatTest
+      Runtime: java11
+      Architectures:
+        - x86_64

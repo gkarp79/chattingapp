@@ -22,8 +22,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.time.Instant;
 
-@SpringBootApplication
-@EnableWebMvc
+
 public class StreamLambdaHandler implements RequestStreamHandler {
     private static SpringBootLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler;
     static {
@@ -39,9 +38,6 @@ public class StreamLambdaHandler implements RequestStreamHandler {
         }
     }
 
-    public static void main(String[] args) {
-        SpringApplication.run(StreamLambdaHandler.class);
-    }
 
     @Bean
     public HandlerMapping handlerMapping(){

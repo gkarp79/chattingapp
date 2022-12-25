@@ -1,22 +1,69 @@
 package com.websocket.chattest.Entity;
 
 
+import com.amazonaws.services.dynamodbv2.datamodeling.*;
+import io.swagger.models.auth.In;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
-@Log4j2
-@Document(collection = "chat")
+@AllArgsConstructor
+@NoArgsConstructor
+@DynamoDBTable(tableName = "chat")
 public class Chat {
+    private int cid;
 
-    @Id
-    private String id;
     private String msg;
+
+
     private String sender;
+
+
     private String roomNum;
+
+
     private LocalDateTime creatAt;
+
+
+    @DynamoDBHashKey
+    public int getCid(){return cid;}
+    @DynamoDBAttribute
+    public String getRoomNum() {
+        return roomNum;
+    }
+
+    @DynamoDBAttribute
+    public String getMsg() {
+        return msg;
+    }
+
+    @DynamoDBAttribute
+    public String getSender() {
+        return sender;
+    }
+
+
+
+    @DynamoDBAttribute
+    @DynamoDBRangeKey
+    @DynamoDBTypeConverted(converter = LocalDateTimeConverter.class)
+    public LocalDateTime getCreatAt() {
+        return creatAt;
+    }
+
+
+    static public class LocalDateTimeConverter implements DynamoDBTypeConverter<String, LocalDateTime>{
+        @Override
+        public String convert(final LocalDateTime localDateTime) {
+            return localDateTime.toString();
+        }
+
+        @Override
+        public LocalDateTime unconvert(final String s) {
+            return LocalDateTime.parse(s);
+        }
+    }
 }

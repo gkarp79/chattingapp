@@ -1,5 +1,6 @@
 package com.websocket.chattest;
 
+import com.websocket.chattest.config.StreamLambdaHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
